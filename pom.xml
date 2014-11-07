@@ -17,10 +17,16 @@
 			<version>${dropwizard.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.jboss.weld.se</groupId>
-			<artifactId>weld-se</artifactId>
-			<version>2.2.6.Final</version>
+			<groupId>com.hubspot.dropwizard</groupId>
+			<artifactId>dropwizard-guice</artifactId>
+			<version>0.7.0.2</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>3.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

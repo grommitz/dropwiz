@@ -2,27 +2,24 @@ package com.grommitz.dropwiz;
 
 import javax.inject.Inject;
 
-import org.jboss.weld.environment.se.Weld;
-import org.jboss.weld.environment.se.WeldContainer;
-
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.grommitz.dropwiz.resources.HelloWorldResource;
 import com.grommitz.dropwiz.health.TemplateHealthCheck;
+import com.hubspot.dropwizard.guice.GuiceBundle;
 
 public class App extends Application<AppConfig> {
 
-	@Inject NameService service;
-	@Inject HelloWorldResource resource;
+	//	@Inject NameService service;
+	//	@Inject HelloWorldResource resource;
 
 	public static void main(String[] args) throws Exception {
-		Weld weld = new Weld();
-		WeldContainer container = weld.initialize();
-		App app = container.instance().select(App.class).get();	    
+		App app = new App();
 		app.run(args);
-		weld.shutdown();
 	}
 
 	@Override
@@ -32,19 +29,26 @@ public class App extends Application<AppConfig> {
 
 	@Override
 	public void initialize(Bootstrap<AppConfig> bootstrap) {
-		System.out.println("Initialised app for " + service.getName());
+		System.out.println("Initialised app for x"); // + service.getName());
+		GuiceBundle<AppConfig> guiceBundle = GuiceBundle.<AppConfig>newBuilder()
+				.addModule(new TheGuice())
+				.setConfigClass(AppConfig.class)
+				.enableAutoConfig(getClass().getPackage().getName())
+				.build();
+		bootstrap.addBundle(guiceBundle);
 	}
-	
+
 	@Override
 	public void run(AppConfig configuration, Environment environment) {
 //		final HelloWorldResource resource = new HelloWorldResource(
 //				configuration.getTemplate(),
 //				configuration.getDefaultName());
-		environment.jersey().register(resource);
-
-		final TemplateHealthCheck healthCheck =
-				new TemplateHealthCheck(configuration.getTemplate());
-		environment.healthChecks().register("template", healthCheck);
+//		Injector injector = Guice.createInjector();
+//		environment.jersey().register(injector.getInstance(HelloWorldResource.class));
+//
+//		final TemplateHealthCheck healthCheck =
+//				new TemplateHealthCheck(configuration.getTemplate());
+//		environment.healthChecks().register("template", healthCheck);
 	}
 
 }

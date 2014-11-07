@@ -1,6 +1,7 @@
 package com.grommitz.dropwiz.resources;
 
 import com.google.common.base.Optional;
+import com.google.inject.name.Named;
 import com.grommitz.dropwiz.NameService;
 import com.grommitz.dropwiz.Saying;
 import com.codahale.metrics.annotation.Timed;
@@ -20,9 +21,11 @@ public class HelloWorldResource {
 	private final String template;
 	private final String defaultName;
 	private final AtomicLong counter;
-	@Inject NameService service;
-
-	public HelloWorldResource(String template, String defaultName) {
+	//@Inject NameService service;
+	
+	@Inject
+	public HelloWorldResource(@Named("template") String template, 
+							  @Named("defaultName") String defaultName) {
 		this.template = template;
 		this.defaultName = defaultName;
 		this.counter = new AtomicLong();
@@ -31,8 +34,8 @@ public class HelloWorldResource {
 	@GET
 	@Timed
 	public Saying sayHello(@QueryParam("name") Optional<String> name) {
-		//final String value = String.format(template, name.or(defaultName));
-		final String value = String.format(template, service == null ? "null" : service.getName());
+		final String value = String.format(template, name.or(defaultName));
+		//final String value = String.format(template, message); //service == null ? "null" : service.getName());
 		return new Saying(counter.incrementAndGet(), value);
 	}
 }
