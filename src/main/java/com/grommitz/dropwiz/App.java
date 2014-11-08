@@ -46,9 +46,9 @@ public class App extends Application<AppConfig> {
 //		Injector injector = Guice.createInjector();
 //		environment.jersey().register(injector.getInstance(HelloWorldResource.class));
 //
-//		final TemplateHealthCheck healthCheck =
-//				new TemplateHealthCheck(configuration.getTemplate());
-//		environment.healthChecks().register("template", healthCheck);
+		final TemplateHealthCheck healthCheck =
+				new TemplateHealthCheck(configuration.getTemplate());
+		environment.healthChecks().register("template", healthCheck);
 	}
 
 }

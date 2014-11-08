@@ -7,8 +7,15 @@
 	<name>dropwizard example project</name>
 
 	<properties>
-		<dropwizard.version>0.7.0</dropwizard.version>
+		<dropwizard.version>0.8.0-SNAPSHOT</dropwizard.version>
 	</properties>
+	
+	<repositories>
+		<repository>
+			<id>sonatype-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -27,6 +34,32 @@
 			<version>3.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>2.13</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.tomakehurst</groupId>
+			<artifactId>wiremock</artifactId>
+			<version>1.50</version>
+
+			<!-- Include this if you have dependency conflicts for Guava, Jetty, Jackson 
+				or Apache HTTP Client -->
+			<classifier>standalone</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<version>1.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

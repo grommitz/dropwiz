@@ -21,21 +21,23 @@ public class HelloWorldResource {
 	private final String template;
 	private final String defaultName;
 	private final AtomicLong counter;
-	//@Inject NameService service;
+	private NameService service;
 	
 	@Inject
 	public HelloWorldResource(@Named("template") String template, 
-							  @Named("defaultName") String defaultName) {
+							  @Named("defaultName") String defaultName,
+							  NameService service) {
 		this.template = template;
 		this.defaultName = defaultName;
 		this.counter = new AtomicLong();
+		this.service = service;
 	}
 
 	@GET
 	@Timed
 	public Saying sayHello(@QueryParam("name") Optional<String> name) {
-		final String value = String.format(template, name.or(defaultName));
-		//final String value = String.format(template, message); //service == null ? "null" : service.getName());
+		String names = name.or(defaultName) + " and " + service.getName();
+		final String value = String.format(template, names);
 		return new Saying(counter.incrementAndGet(), value);
 	}
 }
