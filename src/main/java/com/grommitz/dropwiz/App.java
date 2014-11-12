@@ -40,12 +40,6 @@ public class App extends Application<AppConfig> {
 
 	@Override
 	public void run(AppConfig configuration, Environment environment) {
-//		final HelloWorldResource resource = new HelloWorldResource(
-//				configuration.getTemplate(),
-//				configuration.getDefaultName());
-//		Injector injector = Guice.createInjector();
-//		environment.jersey().register(injector.getInstance(HelloWorldResource.class));
-//
 		final TemplateHealthCheck healthCheck =
 				new TemplateHealthCheck(configuration.getTemplate());
 		environment.healthChecks().register("template", healthCheck);

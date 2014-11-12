@@ -7,7 +7,7 @@
 	<name>dropwizard example project</name>
 
 	<properties>
-		<dropwizard.version>0.8.0-SNAPSHOT</dropwizard.version>
+		<dropwizard.version>0.7.1</dropwizard.version>
 	</properties>
 	
 	<repositories>
@@ -34,11 +34,6 @@
 			<version>3.0</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-client</artifactId>
-			<version>2.13</version>
-		</dependency>
 		<dependency>
 			<groupId>com.github.tomakehurst</groupId>
 			<artifactId>wiremock</artifactId>
