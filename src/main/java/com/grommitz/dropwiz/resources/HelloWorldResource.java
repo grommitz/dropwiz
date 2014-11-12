@@ -20,11 +20,13 @@ public class HelloWorldResource {
 	private final String template;
 	private final String defaultName;
 	private final AtomicLong counter;
-	@Inject NameService service;
+	private NameService service;
 
-	public HelloWorldResource(String template, String defaultName) {
-		this.template = template;
-		this.defaultName = defaultName;
+	@Inject 
+	public HelloWorldResource(NameService service) {
+		this.template = "oi %s";
+		this.defaultName = "default man";
+		this.service = service;
 		this.counter = new AtomicLong();
 	}
 
