@@ -9,8 +9,13 @@ public class Producers {
 	@Produces
 	@ProducedByMe
 	public HelloWorldResource produceResource() {
-		HelloWorldResource resource = new HelloWorldResource(new NameService());
+		HelloWorldResource resource = new HelloWorldResource("poohead", new NameService());
 		return resource;
 	}
 	
+	@Produces
+	@ProducedByMe
+	String produceDefaultName() {
+		return "BORIS";
+	}
 }

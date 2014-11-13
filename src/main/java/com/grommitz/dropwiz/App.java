@@ -1,9 +1,11 @@
 package com.grommitz.dropwiz;
 
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 //import org.jboss.weld.environment.se.Weld;
 //import org.jboss.weld.environment.se.WeldContainer;
+
 
 
 
@@ -20,9 +22,12 @@ import com.grommitz.dropwiz.health.TemplateHealthCheck;
 public class App extends Application<AppConfig> {
 
 	@Inject NameService service;
-	@Inject @ProducedByMe HelloWorldResource resource;
+	@Inject HelloWorldResource resource;
+	private AppConfig configuration;
 
 	public static void main(String[] args) throws Exception {
+		AppConfig d = new App().configuration;
+		
 		Weld weld = new Weld();
 		WeldContainer container = weld.initialize();
 		App app = container.instance().select(App.class).get();	    
@@ -43,7 +48,8 @@ public class App extends Application<AppConfig> {
 	
 	@Override
 	public void run(AppConfig configuration, Environment environment) {
-//		final HelloWorldResource resource = new HelloWorldResource(
+		this.configuration = configuration;
+		//		final HelloWorldResource resource = new HelloWorldResource(
 //				configuration.getTemplate(),
 //				configuration.getDefaultName());
 		environment.jersey().register(resource);
@@ -53,4 +59,6 @@ public class App extends Application<AppConfig> {
 		environment.healthChecks().register("template", healthCheck);
 	}
 
+
+	
 }
